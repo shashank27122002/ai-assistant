@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const chatRoutes = require("./routes/chatRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
@@ -12,8 +13,18 @@ app.use(express.json());
 app.use("/api/chat", chatRoutes);
 app.use("/api/resume", resumeRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API Running");
+// SERVE FRONTEND BUILD
+app.use(
+  express.static(
+    path.join(__dirname, "../../client/dist")
+  )
+);
+
+// REACT ROUTES
+app.use((req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../client/dist/index.html")
+  );
 });
 
 module.exports = app;
