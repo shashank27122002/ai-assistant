@@ -10,10 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// API ROUTES
 app.use("/api/chat", chatRoutes);
 app.use("/api/resume", resumeRoutes);
 
-// SERVE FRONTEND BUILD
+// SERVE FRONTEND BUILD FILES
 app.use(
   express.static(
     path.join(__dirname, "../../client/dist")
@@ -23,7 +24,10 @@ app.use(
 // REACT ROUTES
 app.use((req, res) => {
   res.sendFile(
-    path.join(__dirname, "../../client/dist/index.html")
+    path.join(
+      __dirname,
+      "../../client/dist/index.html"
+    )
   );
 });
 
